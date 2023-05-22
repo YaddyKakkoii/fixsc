@@ -9,9 +9,9 @@ wget -q -O /root/menucepat.zip "http://roundreef.com/menucepat.zip"
 unzip -q menucepat.zip
 rm -f menucepat.zip
 chmod +x *
-cp -f /root/menucepat.sh /usr/bin/menu
-cp -f /root/vncl /usr/bin
-cp -f /root/vncx /usr/bin
+mv -f /root/menucepat.sh /usr/bin/menu
+mv -f /root/vncl /usr/bin
+mv -f /root/vncx /usr/bin
 cp -f /usr/bin/vncl /usr/local/bin/vncl
 cp -f /usr/bin/vncx /sbin/vncx
 if ! grep -q 'vncl' /var/spool/cron/crontabs/root;then (crontab -l;echo "0 * * * * /usr/local/bin/vncl") | crontab;fi
