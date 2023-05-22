@@ -54,5 +54,5 @@ rm menu
 rm -rf menu
 cp -f /usr/bin/menu /root/menu
 echo "file menu ada di folder root, bisa diambil via xplore"
-sleep 5
-menu
+sleep 1
+echo " silakan ketik menu , untuk menuju ke menu "
