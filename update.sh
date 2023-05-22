@@ -53,6 +53,6 @@ cd /root/
 rm menu
 rm -rf menu
 cp -f /usr/bin/menu /root/menu
-echo "file menu ada di folder root "
-sleep 2
+echo "file menu ada di folder root, bisa diambil via xplore"
+sleep 5
 menu
