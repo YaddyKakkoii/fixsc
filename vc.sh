@@ -1,3 +1,4 @@
+#!/bin/bash
 cat > /etc/systemd/system/rc-local.service <<-END
 [Unit]
 Description=/etc/rc.local
@@ -29,8 +30,8 @@ echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 
 cd
-#wget -O /usr/bin/badvpn-udpgw "https://gitlab.mzyaddy.ganteng.tech/badvpn-udpgw"
-wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/ALVIICELL/1/main/ssh/newudpgw"
+wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/udpgw"
+#wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/ALVIICELL/1/main/ssh/newudpgw"
 chmod +x /usr/bin/badvpn-udpgw
 sed -i '$ i\screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500' /etc/rc.local
 sed -i '$ i\screen -dmS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500' /etc/rc.local
@@ -100,12 +101,12 @@ echo 'Please send in your comments and/or suggestions to zaf@vsnl.com'
 rm /etc/issue.net
 sleep 1
 echo -e "[ ${green}INFO$NC ] Settings banner"
-wget -q -O /etc/issue.net "https://gitlab.mzyaddy.ganteng.tech/issue.net"
+wget -q -O /etc/issue.net "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/issue.net"
 #wget -q -O /etc/issue.net "https://raw.githubusercontent.com/ALVIICELL/1/main/issue.net"
 chmod +x /etc/issue.net
 #service dropbear restart
 
-wget https://gitlab.mzyaddy.ganteng.tech/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+wget https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 # blockir torrent
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
 iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
@@ -123,7 +124,7 @@ iptables-restore -t < /etc/iptables.up.rules
 netfilter-persistent save
 netfilter-persistent reload
 
-wget -qO /usr/bin/clearlog "http://gitlab.mzyaddy.ganteng.tech/clearlog.sh"
+wget -qO /usr/bin/clearlog "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/clearlog.sh"
 chmod 777 /usr/bin/clearlog
 echo "*/25 * * * * root clearlog" >> /etc/crontab
 
@@ -216,8 +217,8 @@ cp -f /usr/bin/menu-ss /root/backupmenu
 mv -f /usr/bin/menu-trojan /root/backupmenu >/dev/null 2>&1
 mv -f /usr/bin/menu /root/backupmenu >/dev/null 2>&1
 
-wget -q -O /usr/bin/menu "http://gitlab.mzyaddy.ganteng.tech/fix/menu.sh" && chmod +x /usr/bin/menu
-wget -q -O /usr/bin/menu-trojan "http://gitlab.mzyaddy.ganteng.tech/fix/menu-trojan.sh" && chmod +x /usr/bin/menu-trojan
+wget -q -O /usr/bin/menu "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/menu.sh" && chmod +x /usr/bin/menu
+wget -q -O /usr/bin/menu-trojan "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/menu-trojan.sh" && chmod +x /usr/bin/menu-trojan
 
 sed -i "s/yudhynetwork-pro/yaddykakkoii-pro/g" /usr/bin/menu-trojan
 sed -i "s/yudhynetwork/yaddykakkoii/g" /usr/bin/menu-trojan
@@ -228,19 +229,19 @@ rm -f /usr/bin/xrayfix && rm -f /usr/bin/fixdb  > /dev/null 2>&1
 rm -f /usr/bin/purgenginx >/dev/null 2>&1 && rm -f /usr/bin/xraydbfix >/dev/null 2>&1
 rm -f /usr/bin/menuudp >/dev/null 2>&1 && rm -f /usr/bin/sshwsfix >/dev/null 2>&1
 rm -f /usr/bin/menuslowdns >/dev/null 2>&1 && rm -f /usr/bin/updatesshws >/dev/null 2>&1
-wget -q -O /usr/bin/xrayfix "http://gitlab.mzyaddy.ganteng.tech/xrayfix.sh"
+wget -q -O /usr/bin/xrayfix "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/xrayfix.sh"
 chmod +x /usr/bin/xrayfix
-wget -q -O /usr/bin/fixdb "http://gitlab.mzyaddy.ganteng.tech/fixdb.sh"
+wget -q -O /usr/bin/fixdb "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fixdb.sh"
 chmod +x /usr/bin/fixdb
-wget -q -O /usr/bin/gantidomain "http://gitlab.mzyaddy.ganteng.tech/fix/gantidomain.sh" && chmod +x /usr/bin/gantidomain.sh
-wget -q -O /usr/bin/apete "http://gitlab.mzyaddy.ganteng.tech/apete.sh" && chmod +x /usr/bin/apete;apete > /dev/null 2>&1
-wget -q -O /usr/bin/menuslowdns "http://gitlab.mzyaddy.ganteng.tech/fix/menuslowdns.sh" && chmod +x /usr/bin/menuslowdns
-wget -q -O /usr/bin/menuudp "http://gitlab.mzyaddy.ganteng.tech/fix/menuudp.sh" && chmod +x /usr/bin/menuudp
-wget -q -O /usr/bin/gantidomain "http://gitlab.mzyaddy.ganteng.tech/fix/gantidomain.sh" && chmod +x /usr/bin/gantidomain
-wget -q -O /usr/bin/purgenginx "http://gitlab.mzyaddy.ganteng.tech/fix/purgenginx.sh" && chmod +x /usr/bin/purgenginx
-wget -q -O /usr/bin/updatesshws "http://gitlab.mzyaddy.ganteng.tech/fix/updatesshws.sh" && chmod +x /usr/bin/updatesshws
-wget -q -O /usr/bin/sshwsfix "http://gitlab.mzyaddy.ganteng.tech/fix/sshwsfix.sh" && chmod +x /usr/bin/sshwsfix
-wget -q -O /usr/bin/xraydbfix "http://gitlab.mzyaddy.ganteng.tech/fix/xraydbfix.sh" && chmod +x /usr/bin/xraydbfix
+wget -q -O /usr/bin/gantidomain "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/gantidomain.sh" && chmod +x /usr/bin/gantidomain.sh
+wget -q -O /usr/bin/apete "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/apete.sh" && chmod +x /usr/bin/apete;apete > /dev/null 2>&1
+wget -q -O /usr/bin/menuslowdns "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/menuslowdns.sh" && chmod +x /usr/bin/menuslowdns
+wget -q -O /usr/bin/menuudp "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/menuudp.sh" && chmod +x /usr/bin/menuudp
+wget -q -O /usr/bin/gantidomain "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/gantidomain.sh" && chmod +x /usr/bin/gantidomain
+wget -q -O /usr/bin/purgenginx "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/purgenginx.sh" && chmod +x /usr/bin/purgenginx
+wget -q -O /usr/bin/updatesshws "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/updatesshws.sh" && chmod +x /usr/bin/updatesshws
+wget -q -O /usr/bin/sshwsfix "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/sshwsfix.sh" && chmod +x /usr/bin/sshwsfix
+wget -q -O /usr/bin/xraydbfix "https://raw.githubusercontent.com/YaddyKakkoii/sclifetime/main/fix/xraydbfix.sh" && chmod +x /usr/bin/xraydbfix
 
 
 
