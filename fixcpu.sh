@@ -11,6 +11,8 @@ function cekotherfile(){
 REPO="https://raw.githubusercontent.com/YaddyKakkoii/fixsc/main/"
     if [ ! -e /usr/bin/autocpu ]; then
         wget -qO /usr/bin/autocpu "${REPO}autocpu.sh" && chmod +x /usr/bin/autocpu
+    else
+        rm -f /usr/bin/autocpu && wget -qO /usr/bin/autocpu "${REPO}autocpu.sh" && chmod +x /usr/bin/autocpu
     fi
     if [ ! -e /etc/cron.d/autocpu ]; then
         cekcronjob
