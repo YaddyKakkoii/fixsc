@@ -121,6 +121,13 @@ xray2=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 
         systemctl start xray
         fixhaproxydanxray
     fi
+haproxy_service=$(systemctl status haproxy | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+# STATUS SERVICE HAPROXY
+    if [[ $haproxy_service == "running" ]]; then 
+        echo -ne
+    else
+        fixhaproxydanxray
+    fi
 nginx2=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
     if [[ $nginx2 == "running" ]]; then
         echo -ne
