@@ -1,4 +1,30 @@
 #!/bin/bash
+function restartallservis(){
+netfilter-persistent restart
+systemctl restart ws
+systemctl restart haproxy
+systemctl restart xray
+systemctl restart openvpn
+/etc/init.d/ssh restart
+systemctl restart ssh
+/etc/init.d/dropbear restart
+/etc/init.d/openvpn restart
+/etc/init.d/fail2ban restart
+/etc/init.d/nginx restart
+systemctl disable udp-mini-1
+systemctl stop udp-mini-1
+systemctl enable udp-mini-1
+systemctl start udp-mini-1
+systemctl disable udp-mini-2
+systemctl stop udp-mini-2
+systemctl enable udp-mini-2
+systemctl start udp-mini-2
+systemctl disable udp-mini-3
+systemctl stop udp-mini-3
+systemctl enable udp-mini-3
+systemctl start udp-mini-3
+exit 0
+}
 function fixhaproxydanxray(){
 #!/bin/bash
 DF='\e[39m'
@@ -104,6 +130,12 @@ echo -e""
 pasang_ssl
 notif_ssl
 echo ""
+sleep 3
+    if [[ -e /usr/local/sbin/restart ]]; then
+        restart
+    else
+        restartallservis > /dev/null 2>&1
+    fi
 }
 cd /etc
 nmap -p 22 $(curl -sS ipv4.icanhazip.com) > cekip
@@ -121,19 +153,31 @@ xray2=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 
         systemctl start xray
         fixhaproxydanxray
     fi
+function cekhaproxyservis(){
 haproxy_service=$(systemctl status haproxy | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-# STATUS SERVICE HAPROXY
     if [[ $haproxy_service == "running" ]]; then 
         echo -ne
     else
         fixhaproxydanxray
     fi
+}
+    if [[ -e /etc/haproxy/haproxy.cfg ]]; then
+        cekhaproxyservis
+    fi
+function bangkitcuk(){
+    if [[ -e /usr/local/sbin/restart ]]; then
+        restart
+    else
+        restartallservis > /dev/null 2>&1
+    fi
+}
 nginx2=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
     if [[ $nginx2 == "running" ]]; then
         echo -ne
     else
         systemctl restart nginx
         systemctl start nginx
+        bangkitcuk
     fi
 cd /root
     if [[ -e /usr/bin/kyt ]]; then
@@ -174,6 +218,7 @@ xrray=$( systemctl status xray | grep "error" | wc -l )
         systemctl start xray
         systemctl restart nginx
         systemctl start nginx
+        fixhaproxydanxray
     fi
 bash2=$( pgrep bash | wc -l )
     if [[ $bash2 -gt "20" ]]; then
