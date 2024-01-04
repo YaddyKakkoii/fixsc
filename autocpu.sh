@@ -260,17 +260,31 @@ xray2=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 
 
 }
 
-cekstatusxraysatu
-cekstatusxraydua
-cekstatusxraytiga
-cekstatusxrayfinal
+function fixhaproxy() {
+bannerhaproxy
+rm -fr /etc/haproxy/hap.pem
+cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
+systemctl restart nginx
+systemctl restart xray
+echo -e "  \033[1;91m service restart daemon-reload\033[1;37m"
+systemctl daemon-reload
+echo -e "  \033[1;91m service restart haproxy\033[1;37m"    
+systemctl restart haproxy
+
+}
 
 function cekhaproxyservis(){
 haproxy_service=$(systemctl status haproxy | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
     if [[ $haproxy_service == "running" ]]; then 
         echo -ne
     else
-        fixhaproxydanxray
+        fixhaproxy
+        sleep 9
+        if [[ $haproxy_service == "running" ]]; then
+            echo -ne
+        else
+            fixhaproxydanxray
+        fi
     fi
 
 }
@@ -278,6 +292,11 @@ haproxy_service=$(systemctl status haproxy | grep Active | awk '{print $3}' | cu
 if [[ -e /etc/haproxy/haproxy.cfg ]]; then
     cekhaproxyservis
 fi
+
+cekstatusxraysatu
+cekstatusxraydua
+cekstatusxraytiga
+cekstatusxrayfinal
 
 nginx2=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g' | sed 's/)//g' )
     if [[ $nginx2 == "running" ]]; then
