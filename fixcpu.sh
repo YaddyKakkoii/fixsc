@@ -5,7 +5,7 @@ function cekcronjob(){
 cat> /etc/cron.d/autocpu << END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-*/7 * * * * root /usr/bin/autocpu
+*/5 * * * * root /usr/bin/autocpu
 END
 
 }
