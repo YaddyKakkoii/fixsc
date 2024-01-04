@@ -304,7 +304,18 @@ nginx2=$( systemctl status nginx | grep Active | awk '{print $3}' | sed 's/(//g'
     else
         systemctl restart nginx
         systemctl start nginx
-        bangkitcuk
+        sleep 6
+        if [[ $nginx2 == "running" ]]; then
+            echo -ne
+        else
+            bangkitcuk
+            sleep 6
+            if [[ $nginx2 == "running" ]]; then
+                echo -ne
+            else
+                fixhaproxydanxray
+            fi
+        fi
     fi
 
 cd /root
