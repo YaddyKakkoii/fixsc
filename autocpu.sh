@@ -26,7 +26,6 @@ export CHATID="1117211252"
 export TIME="10"
 export URL="https://api.telegram.org/bot$KEY/sendMessage"
 #CHATID="$CHATID"    #KEY="$KEY"    #TIME="$TIME"    #URL="$URL"
-clear
 function restartallservis(){
 netfilter-persistent restart
 systemctl restart ws
@@ -58,7 +57,6 @@ function bannerhaproxy() {
 bang="\033[1;93m"
 purple="\033[1;95m"
 NC='\033[0m'
-clear
 echo -e  "${bang}╭════════════════════════════════════════╮${NC}"
 echo -e "${bang}│  $NC   ${purple}    FIXED HAPROXY OFFLINE   $NC    ${bang}   │${NC}"
 echo -e  "${bang}╰════════════════════════════════════════╯${NC}"
@@ -148,7 +146,6 @@ function bannerxrayfix() {
 bang="\033[1;93m"
 purple="\033[1;95m"
 NC='\033[0m'
-clear
 echo -e  "${bang}╭════════════════════════════════════════╮${NC}"
 echo -e "${bang}│  $NC   ${purple}    FIXED XRAY OFFLINE   $NC       ${bang}   │${NC}"
 echo -e  "${bang}╰════════════════════════════════════════╯${NC}"
