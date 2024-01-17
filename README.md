@@ -1,3 +1,6 @@
-#Raimu Asu
+# Raimu Asu
 
-#nek error resiko mu yo suu 🤪🤪
+# Nek error, kuwi resiko mu yo suu 🤪🤪
+
+
+😏
